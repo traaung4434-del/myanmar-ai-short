@@ -2,12 +2,143 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Myanmar AI Shorts</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Myanmar AI Shorts Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0c1020;color:#f7f7fb;font-family:Arial,sans-serif;line-height:1.65}
+header{padding:24px 16px;background:linear-gradient(135deg,#4c1d95,#172554)}
+header h1{margin:0;font-size:25px}
+header p{margin:6px 0 0;color:#e0e7ff}
+main{max-width:760px;margin:auto;padding:16px}
+.card{background:#171d30;border:1px solid #303950;border-radius:16px;padding:18px;margin-bottom:16px}
+h2{font-size:19px;margin:0 0 14px}
+label{display:block;margin:12px 0 5px;font-weight:bold}
+input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #47516b;background:#0d1426;color:white;font:inherit}
+textarea{min-height:100px;resize:vertical}
+button{padding:12px 15px;border:0;border-radius:10px;font-weight:bold;font-size:15px;cursor:pointer}
+.primary{background:#8b5cf6;color:white;width:100%;margin-top:14px}
+.secondary{background:#29344e;color:white;margin:5px 4px 5px 0}
+.output{white-space:pre-wrap;overflow-wrap:anywhere;background:#0c1222;border-radius:10px;padding:14px;min-height:65px}
+.muted{color:#b5bfd5;font-size:13px}
+footer{text-align:center;color:#9ca3af;padding:22px}
+</style>
 </head>
 <body>
-  <h1>မြန်မာ AI Shorts မှ ကြိုဆိုပါတယ်။</h1>
-  <p>ငါတို့ရဲ့ Website ကို တည်ဆောက်နေပါတယ်။</p>
+<header>
+<h1>🎬 Myanmar AI Shorts</h1>
+<p>မြန်မာလို Short Video ဖန်တီးဖို့ ကိုယ့်ရဲ့ Studio</p>
+</header>
+<main>
+<section class="card">
+<h2>✨ Shorts အသစ်ဖန်တီးမယ်</h2>
+<label for="topic">ဗီဒီယိုခေါင်းစဉ်</label>
+<input id="topic" placeholder="ဥပမာ - အောင်မြင်မှုရဲ့ လျှို့ဝှက်ချက်">
+<label for="kind">အကြောင်းအရာအမျိုးအစား</label>
+<select id="kind">
+<option>ဗဟုသုတ</option>
+<option>ဟာသ</option>
+<option>ပုံပြင်</option>
+<option>သမိုင်း</option>
+<option>အားပေးစကား</option>
+<option>နည်းပညာ</option>
+</select>
+<label for="duration">ဗီဒီယိုကြာချိန်</label>
+<select id="duration">
+<option value="30">30 စက္ကန့်</option>
+<option value="45">45 စက္ကန့်</option>
+<option value="60">60 စက္ကန့်</option>
+</select>
+<label for="style">တင်ဆက်ပုံ</label>
+<select id="style">
+<option>စိတ်ဝင်စားဖွယ်</option>
+<option>ရယ်စရာကောင်းသော</option>
+<option>ရုပ်ရှင်ဆန်သော</option>
+<option>သတင်းတင်ဆက်ပုံ</option>
+<option>အားပေးလှုံ့ဆော်သော</option>
+</select>
+<label for="extra">ထပ်ဖြည့်လိုသော အချက်အလက်</label>
+<textarea id="extra" placeholder="ထည့်ချင်တဲ့အချက်တွေ ရေးနိုင်ပါတယ်"></textarea>
+<button class="primary" onclick="generate()">🚀 ဇာတ်ညွှန်းဖန်တီးမယ်</button>
+<p class="muted">ဒီအခြေခံဗားရှင်းမှာ ခေါင်းစဉ်အလိုက် ဇာတ်ညွှန်းနမူနာနဲ့ Scene Prompt တွေကို ဖန်တီးပေးပါတယ်။</p>
+</section>
+
+<section class="card">
+<h2>📝 ဇာတ်ညွှန်း</h2>
+<textarea id="script" placeholder="ဖန်တီးထားတဲ့ ဇာတ်ညွှန်း ဒီမှာပေါ်လာမယ်"></textarea>
+<button class="secondary" onclick="copyText('script')">📋 ကူးယူမယ်</button>
+<button class="secondary" onclick="speak()">🔊 အသံနားထောင်မယ်</button>
+<button class="secondary" onclick="stopSpeak()">⏹ ရပ်မယ်</button>
+</section>
+
+<section class="card">
+<h2>🎞 Scene နဲ့ AI Prompt</h2>
+<div id="scenes" class="output">ခေါင်းစဉ်ထည့်ပြီး ဇာတ်ညွှန်းဖန်တီးပါ။</div>
+<button class="secondary" onclick="copyText('scenes')">📋 Prompt ကူးယူမယ်</button>
+</section>
+
+<section class="card">
+<h2>📥 ဖိုင်ထုတ်ယူမယ်</h2>
+<p class="muted">ဇာတ်ညွှန်းနဲ့ Scene Prompt တွေကို စာသားဖိုင်အဖြစ် သိမ်းနိုင်ပါတယ်။</p>
+<button class="primary" onclick="downloadText()">⬇️ ဇာတ်ညွှန်းဒေါင်းလုဒ်</button>
+</section>
+</main>
+<footer>Myanmar AI Shorts Studio · Version 1.0</footer>
+<script>
+function generate(){
+const topic=document.getElementById('topic').value.trim();
+const kind=document.getElementById('kind').value;
+const duration=Number(document.getElementById('duration').value);
+const style=document.getElementById('style').value;
+const extra=document.getElementById('extra').value.trim();
+if(!topic){alert('ဗီဒီယိုခေါင်းစဉ်ကို အရင်ထည့်ပါ။');return;}
+const opening='ဒီနေ့မှာတော့ "'+topic+'" အကြောင်းကို စိတ်ဝင်စားဖွယ် လေ့လာကြရအောင်။';
+const middle=kind==='ဟာသ'?'တစ်ခါတလေ မထင်မှတ်ထားတဲ့ အဖြစ်အပျက်လေးတွေက အမှတ်တရအကောင်းဆုံး ဖြစ်လာတတ်ပါတယ်။':
+kind==='ပုံပြင်'?'ဒီအကြောင်းအရာထဲမှာ စဉ်းစားစရာ သင်ခန်းစာတစ်ခု ရှိနေပါတယ်။':
+kind==='သမိုင်း'?'ဒီအကြောင်းကို နားလည်ဖို့ အချက်အလက်တွေကို သေချာစဉ်းစားဖို့ လိုပါတယ်။':
+kind==='အားပေးစကား'?'အောင်မြင်မှုဆိုတာ ချက်ချင်းရလာတာမဟုတ်ပါဘူး။ နေ့တိုင်းကြိုးစားမှုလေးတွေကနေ စတင်တာပါ။':
+kind==='နည်းပညာ'?'နည်းပညာကို မှန်ကန်စွာအသုံးချရင် အလုပ်တွေကို ပိုမိုလွယ်ကူစေနိုင်ပါတယ်။':
+'အရေးကြီးဆုံးက အချက်အလက်တွေကို လက်တွေ့အသုံးချနိုင်ဖို့နဲ့ ယုံကြည်စိတ်ချရတဲ့ အရင်းအမြစ်တွေကနေ စစ်ဆေးဖို့ပါ။';
+const ending='ဒီအကြောင်းအရာကို သဘောကျရင် Like လုပ်ပြီး နောက်ထပ်ဗီဒီယိုတွေအတွက် Follow လုပ်ထားပါနော်။';
+const script=opening+'\n\n'+middle+(extra?'\n\nထပ်ဖြည့်ရန် - '+extra:'')+'\n\n'+ending;
+document.getElementById('script').value=script;
+const scenes='Scene 1 — အဖွင့် ('+Math.round(duration*.2)+' စက္ကန့်)\nမြင်ကွင်း: '+topic+' နဲ့ သက်ဆိုင်တဲ့ ဆွဲဆောင်မှုရှိသော အဖွင့်မြင်ကွင်း။\nစာတန်း: '+topic+'\nAI Prompt: Vertical 9:16 short video, '+topic+', cinematic lighting, high detail, '+style+'.\n\nScene 2 — အကြောင်းအရာ ('+Math.round(duration*.55)+' စက္ကန့်)\nဇာတ်ညွှန်း: '+middle+'\nAI Prompt: Vertical 9:16 video scene illustrating '+topic+', '+kind+', natural motion, clear composition, '+style+'.\n\nScene 3 — အဆုံးသတ် ('+Math.round(duration*.25)+' စက္ကန့်)\nဇာတ်ညွှန်း: '+ending+'\nAI Prompt: Vertical 9:16 closing scene, attractive background, space for Burmese captions, smooth ending.';
+document.getElementById('scenes').textContent=scenes;
+}
+function copyText(id){
+const el=document.getElementById(id);
+const text=el.value!==undefined?el.value:el.textContent;
+if(navigator.clipboard&&navigator.clipboard.writeText){
+navigator.clipboard.writeText(text).then(()=>alert('ကူးယူပြီးပါပြီ။')).catch(()=>fallbackCopy(text));
+}else fallbackCopy(text);
+}
+function fallbackCopy(text){
+const area=document.createElement('textarea');
+area.value=text;document.body.appendChild(area);area.select();
+try{document.execCommand('copy');alert('ကူးယူပြီးပါပြီ။')}catch(e){alert('စာသားကို ဖိထားပြီး Copy လုပ်ပါ။')}
+area.remove();
+}
+function speak(){
+if(!('speechSynthesis' in window)){alert('ဒီ Browser မှာ အသံဖတ်စနစ် မရနိုင်ပါ။');return;}
+const text=document.getElementById('script').value;
+if(!text){alert('အရင်ဆုံး ဇာတ်ညွှန်းဖန်တီးပါ။');return;}
+speechSynthesis.cancel();
+const utterance=new SpeechSynthesisUtterance(text);
+utterance.lang='my-MM';utterance.rate=0.9;
+speechSynthesis.speak(utterance);
+}
+function stopSpeak(){if('speechSynthesis' in window)speechSynthesis.cancel();}
+function downloadText(){
+const script=document.getElementById('script').value;
+const scenes=document.getElementById('scenes').textContent;
+if(!script){alert('အရင်ဆုံး ဇာတ်ညွှန်းဖန်တီးပါ။');return;}
+const blob=new Blob(['Myanmar AI Shorts\n\nဇာတ်ညွှန်း\n'+script+'\n\nScene Prompts\n'+scenes],{type:'text/plain;charset=utf-8'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');a.href=url;a.download='myanmar-ai-shorts.txt';a.click();
+URL.revokeObjectURL(url);
+}
+</script>
 </body>
-</html>
+  </html>
+  
