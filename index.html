@@ -1,40 +1,248 @@
-<!doctype html>
-<html lang="my"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10172a"><title>Myanmar AI Shorts V2</title>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#0b1020;color:#f5f7ff;font:16px/1.6 system-ui,sans-serif}header,main,footer{max-width:900px;margin:auto;padding:18px}h1{font-size:clamp(26px,6vw,38px);margin:0}h2{font-size:20px;margin:0 0 10px}.muted{color:#b1bfd8;font-size:14px}.card{background:#141f35;border:1px solid #2c3b59;border-radius:16px;padding:16px;margin:0 0 14px}label{display:block;margin:10px 0 5px;font-weight:700}input,textarea,select{width:100%;padding:12px;border:1px solid #3b4c6d;border-radius:10px;background:#0b1427;color:white;font:inherit}textarea{min-height:150px}button{padding:12px 14px;border:0;border-radius:10px;background:#7657f6;color:white;font-weight:700;font:inherit;margin:5px 5px 0 0}button.alt{background:#2b3b56}canvas{display:block;width:100%;max-height:600px;aspect-ratio:9/16;object-fit:contain;background:#060a14;border-radius:12px}.row{display:grid;grid-template-columns:1fr;gap:10px}@media(min-width:650px){.row{grid-template-columns:1fr 1fr}}.status{color:#a9f6df;min-height:28px}.scene{padding:10px;background:#0d172a;border:1px solid #2b3b56;border-radius:10px;margin:8px 0}small{color:#b1bfd8}
-</style></head><body>
-<header><p class="muted">VERSION 2 · MOBILE FRIENDLY</p><h1>🎬 Myanmar AI Shorts</h1><p class="muted">မြန်မာဇာတ်ညွှန်း · 2D/3D ဆန်သော Animation · အသံဖတ်ပြခြင်း · Video Export</p></header>
-<main>
-<section class="card"><h2>၁။ ဇာတ်လမ်းပြင်ဆင်ရန်</h2>
-<label for="topic">Video အကြောင်းအရာ</label><input id="topic" value="မြန်မာ့သမိုင်းထဲက စိတ်ဝင်စားစရာ အကြောင်းအရာ ၃ ခု">
-<div class="row"><div><label for="style">ရုပ်ထွက်ပုံစံ</label><select id="style"><option value="3d">3D ဆန်သော အရောင်စုံ</option><option value="2d">2D ကာတွန်း</option><option value="neon">Neon / Sci-fi</option><option value="nature">သဘာဝရှုခင်း</option></select></div><div><label for="voice">အသံရွေးချယ်မှု</label><select id="voice"><option value="female">အမျိုးသမီးအသံ (ရနိုင်လျှင်)</option><option value="male">အမျိုးသားအသံ (ရနိုင်လျှင်)</option><option value="any">ရရှိနိုင်သောအသံ</option></select></div><div><label for="rate">အသံပြောနှုန်း</label><select id="rate"><option value=".85">ဖြည်းဖြည်း</option><option value="1" selected>ပုံမှန်</option><option value="1.12">သွက်သွက်</option></select></div><div><label for="duration">Video အရှည်</label><select id="duration"><option value="15">15 စက္ကန့်</option><option value="30" selected>30 စက္ကန့်</option><option value="45">45 စက္ကန့်</option></select></div></div>
-<label for="script">မြန်မာဇာတ်ညွှန်း (ပြင်နိုင်သည်)</label><textarea id="script">သင်သိပါသလား။ မြန်မာ့သမိုင်းထဲမှာ စိတ်ဝင်စားစရာ အကြောင်းအရာတွေ အများကြီးရှိပါတယ်။ ဒီနေ့မှာတော့ စိတ်ဝင်စားစရာ အချက်သုံးချက်ကို လေ့လာကြရအောင်။ ပထမအချက်ကတော့ ရှေးဟောင်းမြို့ပြတွေနဲ့ သူတို့ရဲ့ ဗိသုကာလက်ရာတွေပါ။ ဒုတိယအချက်ကတော့ ကုန်သွယ်ရေးလမ်းကြောင်းတွေကြောင့် ယဉ်ကျေးမှုတွေ ဖလှယ်ခဲ့ကြတာပါ။ တတိယအချက်ကတော့ ရှေးခေတ်လက်မှုပညာနဲ့ အနုပညာလက်ရာတွေ ယနေ့အထိ အမွေအနှစ်အဖြစ် ကျန်ရှိနေတာပါ။ နောက်ထပ် စိတ်ဝင်စားစရာ ဗီဒီယိုတွေအတွက် ဆက်လက်ကြည့်ရှုပေးပါ။</textarea>
-<button id="generate">ဇာတ်ညွှန်းဖန်တီးရန်</button><button id="copy" class="alt">စာသားကူးယူရန်</button><button id="txt" class="alt">TXT သိမ်းရန်</button>
-<p class="muted">ဒီ Demo က Topic အပေါ်မူတည်ပြီး Template နဲ့ ဇာတ်ညွှန်းရေးပေးတာပါ။ အွန်လိုင်း AI API မချိတ်ထားပါ။ အချက်အလက်မှန်ကန်မှုကို စစ်ဆေးပါ။</p></section>
-<section class="card"><h2>၂။ လှုပ်ရှားနေသော မြင်ကွင်း</h2><canvas id="cv" width="360" height="640"></canvas><p><button id="play">▶ Animation ဖွင့်ရန်</button><button id="pause" class="alt">⏸ ရပ်ရန်</button><button id="speak">🔊 အသံနားထောင်ရန်</button><button id="stop" class="alt">အသံရပ်ရန်</button></p><p id="voiceStatus" class="status">အသံ မစမ်းရသေးပါ</p><small>ဖုန်း/Browser ထဲမှာရှိပြီးသား Text-to-Speech ကို အသုံးပြုသည်။ မြန်မာအသံနှင့် gender ရွေးချယ်မှုသည် စက်ပေါ်မူတည်သည်။</small></section>
-<section class="card"><h2>၃။ Scene အကြမ်းဖျဉ်း</h2><div id="scenes"></div></section>
-<section class="card"><h2>၄။ Video Export</h2><p class="muted">Animation ကို real-time ဖမ်းယူပြီး Video ထုတ်မည်။ MP4 မပံ့ပိုးလျှင် WebM အဖြစ် ထုတ်မည်။ ပထမဆုံး 15 စက္ကန့်နဲ့ စမ်းပါ။</p><button id="export">🎥 Video ဖန်တီးရန်</button><button id="download" class="alt" disabled>Video ဖိုင်သိမ်းရန်</button><p id="status" class="status"></p><small>ဤဖိုင်က ရေးဆွဲထားသော animation နဲ့ စာတန်းကိုသာ video လုပ်ပေးသည်။ AI ရုပ်ပုံ/ဗီဒီယိုအစစ်မဟုတ်ပါ။ အသံ narration ကို video ထဲထည့်သွင်းခြင်းက Browser ပေါ်မူတည်၍ မရနိုင်သေးပါ။</small></section>
-</main><footer class="muted">Myanmar AI Shorts V2 · အခမဲ့ Front-end Demo · HTML ဖိုင်တစ်ဖိုင်တည်း</footer>
-<script>
-(()=>{const $=id=>document.getElementById(id),c=$('cv'),x=c.getContext('2d');let run=true,t0=performance.now(),blob=null,raf;const clouds=Array.from({length:5},(_,i)=>({x:i*90,y:70+i%3*30}));function draw(ms){let t=ms/1000,p=$('style').value,g=x.createLinearGradient(0,0,0,640);g.addColorStop(0,p==='neon'?'#151044':p==='nature'?'#63b9a0':'#168acb');g.addColorStop(.55,p==='neon'?'#623c94':'#ffbb82');g.addColorStop(1,'#102039');x.fillStyle=g;x.fillRect(0,0,360,640);
-x.fillStyle='#fff0a2';x.beginPath();x.arc(285,105,34+Math.sin(t)*2,0,7);x.fill();
-clouds.forEach((q,i)=>{let a=(q.x+t*(12+i*2))%440-40;x.fillStyle='#ffffffaa';x.beginPath();x.ellipse(a,q.y,28,12,0,0,7);x.ellipse(a+18,q.y-8,20,15,0,0,7);x.ellipse(a+36,q.y,24,11,0,0,7);x.fill()});
-x.fillStyle=p==='neon'?'#31245d':p==='nature'?'#41806a':'#536a8c';x.beginPath();x.moveTo(0,340);for(let a=0;a<=360;a+=20)x.lineTo(a,275+Math.sin(a*.04)*30+Math.cos(a*.08)*16);x.lineTo(360,430);x.lineTo(0,430);x.fill();
-for(let i=0;i<13;i++){let a=i*30-4,h=50+(i*37)%95;x.fillStyle=i%2?'#405477':'#334660';x.fillRect(a,360-h,24,h);for(let yy=370-h;yy<350;yy+=15){x.fillStyle='#ffe6a0';x.globalAlpha=.7+.3*Math.sin(t*2+i);x.fillRect(a+5,yy,4,6);x.fillRect(a+14,yy,4,6);x.globalAlpha=1}}
-x.fillStyle=p==='neon'?'#25215e':'#277e9b';x.beginPath();x.moveTo(0,410);x.quadraticCurveTo(150,390,360,430);x.lineTo(360,490);x.quadraticCurveTo(160,455,0,470);x.fill();
-x.fillStyle=p==='neon'?'#171a3c':'#244d3e';x.beginPath();x.moveTo(0,480);x.quadraticCurveTo(150,455,360,490);x.lineTo(360,640);x.lineTo(0,640);x.fill();
-for(let i=0;i<9;i++){let a=i*44-8+Math.sin(t+i)*4,y=420+(i%3)*18,h=48+(i*17)%40;x.strokeStyle='#68452d';x.lineWidth=5;x.beginPath();x.moveTo(a,y+h);x.lineTo(a+Math.sin(t+i)*5,y);x.stroke();x.fillStyle=p==='neon'?'#45e9c1':i%2?'#3da85e':'#69c86d';x.beginPath();x.ellipse(a,y,h*.34,h*.45,Math.sin(t+i)*.1,0,7);x.fill()}
-x.fillStyle='#343d4b';x.beginPath();x.moveTo(0,545);x.lineTo(360,515);x.lineTo(360,570);x.lineTo(0,610);x.fill();x.strokeStyle='#ffe7a0';x.lineWidth=3;x.setLineDash([18,16]);x.lineDashOffset=-t*45;x.beginPath();x.moveTo(0,578);x.lineTo(360,542);x.stroke();x.setLineDash([]);
-for(let i=0;i<2;i++){let a=((i===0?-80:390)+(i===0? t*42:-t*30)+600)%500-70,y=i===0?530:555;x.fillStyle=i?'#58d7ff':'#ffbd4a';x.beginPath();x.moveTo(a,y);x.lineTo(a+12,y-15);x.lineTo(a+42,y-15);x.lineTo(a+55,y);x.fill();x.fillRect(a,y,55,15);x.fillStyle='#151d2b';[a+12,a+43].forEach(w=>{x.beginPath();x.arc(w,y+15,6,0,7);x.fill()})}
-for(let i=0;i<45;i++){let a=(i*71)%360,y=490+(i*31)%145;x.strokeStyle=i%2?'#70ce78':'#b9e86b';x.beginPath();x.moveTo(a,y);x.quadraticCurveTo(a+Math.sin(t*2+i)*5,y-6,a+Math.sin(t*2+i)*7,y-12);x.stroke()}
-for(let i=0;i<4;i++){let a=(i*100+t*28)%390-15,y=170+i%2*30;x.strokeStyle='#152e48';x.lineWidth=2;x.beginPath();x.moveTo(a-8,y);x.quadraticCurveTo(a,y-8*Math.abs(Math.sin(t*5+i)),a+2,y);x.quadraticCurveTo(a+7,y-8*Math.abs(Math.sin(t*5+i)),a+11,y);x.stroke()}
-x.fillStyle='#071225cc';x.beginPath();x.roundRect(14,17,332,91,13);x.fill();x.textAlign='center';x.fillStyle='#77f5db';x.font='bold 12px system-ui';x.fillText('MYANMAR AI SHORTS',180,40);x.fillStyle='white';x.font='bold 18px system-ui';let topic=$('topic').value;x.fillText(topic.length>29?topic.slice(0,28)+'…':topic,180,68,315);x.fillStyle='#ffdc85';x.font='bold 11px system-ui';x.fillText(({3d:'3D ANIMATION',2d:'2D CARTOON',neon:'NEON WORLD',nature:'NATURE WORLD'})[p],180,91);
-let w=$('script').value.trim().split(/\s+/),n=Math.max(1,Math.ceil(w.length/9)),line=w.slice(Math.floor(t*1.8)%n*9,Math.floor(t*1.8)%n*9+9).join(' ');x.fillStyle='#030814dd';x.beginPath();x.roundRect(18,570,324,54,10);x.fill();x.fillStyle='white';x.font='bold 13px system-ui';x.fillText(line.slice(0,38),180,593,310);x.fillText(line.slice(38,76),180,612,310)}
-function loop(n){if(run)draw(n-t0);raf=requestAnimationFrame(loop)}function scenes(){let a=$('script').value.match(/[^။!?]+[။!?]?/g)||[];$('scenes').innerHTML=a.slice(0,4).map((s,i)=>`<div class="scene"><b>Scene ${i+1}</b>${esc(s.trim())}<small><br>သစ်ပင်၊ တိမ်၊ ကား၊ မြက်ပင်နဲ့ အလင်းရောင် Animation</small></div>`).join('')}function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function voices(){return 'speechSynthesis'in window?speechSynthesis.getVoices():[]}function say(){if(!('speechSynthesis'in window)){$('voiceStatus').textContent='ဒီ Browser မှာ Text-to-Speech မရပါ';return}speechSynthesis.cancel();let vs=voices(),my=vs.filter(v=>/my|burmese/i.test(v.lang+' '+v.name)),want=$('voice').value;let reg=want==='female'?/female|woman|zira|samantha|karen/i:want==='male'?/male|man|david|mark/i:/.*/;let v=my.find(a=>reg.test(a.name))||my[0]||vs.find(a=>reg.test(a.name))||vs[0],u=new SpeechSynthesisUtterance($('script').value);if(v)u.voice=v;u.rate=+$('rate').value;u.pitch=want==='female'?1.15:want==='male'?.85:1;u.onstart=()=>$('voiceStatus').textContent='အသံ: '+(v?v.name+' / '+v.lang:'Browser default');u.onerror=()=>$('voiceStatus').textContent='အသံမရပါ။ ဖုန်း Text-to-Speech setting ကိုစစ်ပါ။';speechSynthesis.speak(u)}
-$('generate').onclick=()=>{$('script').value=`သင်သိပါသလား။ ${$('topic').value} ဟာ စိတ်ဝင်စားစရာကောင်းတဲ့ အကြောင်းအရာတစ်ခုပါ။ ဒီနေ့မှာတော့ ဒီအကြောင်းနဲ့ပတ်သက်တဲ့ အချက်အလက်တွေကို အတူလေ့လာကြရအောင်။ ပထမဆုံးအနေနဲ့ အရေးကြီးတဲ့အချက်တစ်ခုကို ကြည့်ကြမယ်။ နောက်တစ်ချက်ကတော့ လူအများ မသိသေးတဲ့ အသေးစိတ်အကြောင်းအရာတွေပါ။ ဒီအချက်တွေက ကျွန်တော်တို့ကို ပိုပြီးစိတ်ဝင်စားစေပါတယ်။ နောက်ထပ်ဗီဒီယိုတွေအတွက် ဆက်လက်ကြည့်ရှုပေးပါ။`;scenes();draw(performance.now()-t0)};$('copy').onclick=async()=>{try{await navigator.clipboard.writeText($('script').value);$('status').textContent='စာသားကူးယူပြီးပါပြီ'}catch(e){$('script').select();document.execCommand('copy');$('status').textContent='စာသားကို select လုပ်ထားပါသည်'}};function save(b,n){let u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=n;a.click();setTimeout(()=>URL.revokeObjectURL(u),2000)}$('txt').onclick=()=>save(new Blob([$('script').value],{type:'text/plain;charset=utf-8'}),'myanmar-ai-shorts-script.txt');
-$('play').onclick=()=>{run=true;t0=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)};$('pause').onclick=()=>{run=false;cancelAnimationFrame(raf)};$('speak').onclick=say;$('stop').onclick=()=>{if('speechSynthesis'in window)speechSynthesis.cancel();$('voiceStatus').textContent='အသံရပ်ထားသည်'};$('style').onchange=()=>draw(performance.now()-t0);$('script').oninput=scenes;$('topic').oninput=()=>draw(performance.now()-t0);
-$('export').onclick=()=>{if(!c.captureStream||!window.MediaRecorder){$('status').textContent='ဒီ Browser က Canvas Video Export ကို မပံ့ပိုးပါ။ Chrome အသစ်နဲ့ စမ်းပါ။';return}try{let stream=c.captureStream(30),types=['video/mp4;codecs=avc1.42E01E','video/mp4','video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'],mime=types.find(a=>MediaRecorder.isTypeSupported(a))||'',r=new MediaRecorder(stream,mime?{mimeType:mime}:{}),chunks=[];$('export').disabled=true;$('status').textContent='Video ဖန်တီးနေသည်။ စာမျက်နှာကို မပိတ်ပါနဲ့…';r.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};r.onerror=()=>{$('status').textContent='Export အမှားဖြစ်သည်။';$('export').disabled=false};r.onstop=()=>{blob=new Blob(chunks,{type:r.mimeType||'video/webm'});$('download').disabled=!blob.size;$('status').textContent='ပြီးပါပြီ — '+(r.mimeType||'video/webm')+' / '+Math.round(blob.size/1024)+' KB';$('export').disabled=false;stream.getTracks().forEach(a=>a.stop())};r.start();let st=performance.now(),dur=+$('duration').value;function cap(n){draw(n-t0);if(n-st>=dur*1000)r.stop();else requestAnimationFrame(cap)}requestAnimationFrame(cap)}catch(e){$('status').textContent='Export မအောင်မြင်ပါ: '+e.message;$('export').disabled=false}};$('download').onclick=()=>{if(blob)save(blob,'myanmar-ai-shorts-video.'+(blob.type.includes('mp4')?'mp4':'webm'))};
-scenes();draw(0);raf=requestAnimationFrame(loop);
-})();
-</script></body></html>
+<!DOCTYPE html>  <html lang="my">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title>Myanmar AI Shorts Studio</title>  
+<style>  
+*{box-sizing:border-box}  
+body{margin:0;background:#0c1020;color:#f7f7fb;font-family:Arial,sans-serif;line-height:1.65}  
+header{padding:24px 16px;background:linear-gradient(135deg,#4c1d95,#172554)}  
+header h1{margin:0;font-size:25px}  
+header p{margin:6px 0 0;color:#e0e7ff}  
+main{max-width:760px;margin:auto;padding:16px}  
+.card{background:#171d30;border:1px solid #303950;border-radius:16px;padding:18px;margin-bottom:16px}  
+h2{font-size:19px;margin:0 0 14px}  
+label{display:block;margin:12px 0 5px;font-weight:bold}  
+input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #47516b;background:#0d1426;color:white;font:inherit}  
+textarea{min-height:100px;resize:vertical}  
+button{padding:12px 15px;border:0;border-radius:10px;font-weight:bold;font-size:15px;cursor:pointer}  
+.primary{background:#8b5cf6;color:white;width:100%;margin-top:14px}  
+.secondary{background:#29344e;color:white;margin:5px 4px 5px 0}  
+.output{white-space:pre-wrap;overflow-wrap:anywhere;background:#0c1222;border-radius:10px;padding:14px;min-height:65px}  
+.muted{color:#b5bfd5;font-size:13px}  
+footer{text-align:center;color:#9ca3af;padding:22px}  
+</style>  
+</head>  
+<body>  
+<header>  
+<h1>🎬 Myanmar AI Shorts</h1>  
+<p>မြန်မာလို Short Video ဖန်တီးဖို့ ကိုယ့်ရဲ့ Studio</p>  
+</header>  
+<main>  
+<section class="card">  
+<h2>✨ Shorts အသစ်ဖန်တီးမယ်</h2>  
+<label for="topic">ဗီဒီယိုခေါင်းစဉ်</label>  
+<input id="topic" placeholder="ဥပမာ - အောင်မြင်မှုရဲ့ လျှို့ဝှက်ချက်">  
+<label for="kind">အကြောင်းအရာအမျိုးအစား</label>  
+<select id="kind">  
+<option>ဗဟုသုတ</option>  
+<option>ဟာသ</option>  
+<option>ပုံပြင်</option>  
+<option>သမိုင်း</option>  
+<option>အားပေးစကား</option>  
+<option>နည်းပညာ</option>  
+</select>  
+<label for="duration">ဗီဒီယိုကြာချိန်</label>  
+<select id="duration">  
+<option value="30">30 စက္ကန့်</option>  
+<option value="45">45 စက္ကန့်</option>  
+<option value="60">60 စက္ကန့်</option>  
+</select>  
+<label for="style">တင်ဆက်ပုံ</label>  
+<select id="style">  
+<option>စိတ်ဝင်စားဖွယ်</option>  
+<option>ရယ်စရာကောင်းသော</option>  
+<option>ရုပ်ရှင်ဆန်သော</option>  
+<option>သတင်းတင်ဆက်ပုံ</option>  
+<option>အားပေးလှုံ့ဆော်သော</option>  
+</select>  
+<label for="extra">ထပ်ဖြည့်လိုသော အချက်အလက်</label>  
+<textarea id="extra" placeholder="ထည့်ချင်တဲ့အချက်တွေ ရေးနိုင်ပါတယ်"></textarea>  
+<button class="primary" onclick="generate()">🚀 ဇာတ်ညွှန်းဖန်တီးမယ်</button>  
+<p class="muted">ဒီအခြေခံဗားရှင်းမှာ ခေါင်းစဉ်အလိုက် ဇာတ်ညွှန်းနမူနာနဲ့ Scene Prompt တွေကို ဖန်တီးပေးပါတယ်။</p>  
+</section>  <section class="card">  
+<h2>📝 ဇာတ်ညွှန်း</h2>  
+<textarea id="script" placeholder="ဖန်တီးထားတဲ့ ဇာတ်ညွှန်း ဒီမှာပေါ်လာမယ်"></textarea>  
+<button class="secondary" onclick="copyText('script')">📋 ကူးယူမယ်</button>  
+<button class="secondary" onclick="speak()">🔊 အသံနားထောင်မယ်</button>  
+<button class="secondary" onclick="stopSpeak()">⏹ ရပ်မယ်</button>  
+</section>  <section class="card">  
+<h2>🎞 Scene နဲ့ AI Prompt</h2>  
+<div id="scenes" class="output">ခေါင်းစဉ်ထည့်ပြီး ဇာတ်ညွှန်းဖန်တီးပါ။</div>  
+<button class="secondary" onclick="copyText('scenes')">📋 Prompt ကူးယူမယ်</button>  
+</section>  <section class="card">  
+<h2>📥 ဖိုင်ထုတ်ယူမယ်</h2>  
+<p class="muted">ဇာတ်ညွှန်းနဲ့ Scene Prompt တွေကို စာသားဖိုင်အဖြစ် သိမ်းနိုင်ပါတယ်။</p>  
+<button class="primary" onclick="downloadText()">⬇️ ဇာတ်ညွှန်းဒေါင်းလုဒ်</button>  
+</section> 
+<section class="card">
+  <h2>🎬 Short Video ထုတ်ယူမယ်</h2>
+  <p class="muted">
+    ဇာတ်ညွှန်းကို မြန်မာစာတန်းပါသော ဒေါင်လိုက်ဗီဒီယိုအဖြစ် ဖန်တီးပါ။
+  </p>
+  <canvas id="videoCanvas" width="360" height="640"
+    style="width:100%;max-width:270px;display:block;margin:12px auto;background:#111827;border-radius:12px">
+  </canvas>
+  <button class="primary" onclick="makeVideo()">
+    🎥 ဗီဒီယိုဖန်တီးပြီး သိမ်းမယ်
+  </button>
+  <p id="videoStatus" class="muted">ဇာတ်ညွှန်းအရင်ဖန်တီးပါ။</p>
+  <a id="videoDownload" style="display:none;color:#c4b5fd"
+    download="myanmar-ai-shorts.webm">⬇️ ဗီဒီယိုဒေါင်းလုဒ်</a>
+</section>
+</main>  
+<footer>Myanmar AI Shorts Studio · Version 1.0</footer>  
+<script>  
+function generate(){  
+const topic=document.getElementById('topic').value.trim();  
+const kind=document.getElementById('kind').value;  
+const duration=Number(document.getElementById('duration').value);  
+const style=document.getElementById('style').value;  
+const extra=document.getElementById('extra').value.trim();  
+if(!topic){alert('ဗီဒီယိုခေါင်းစဉ်ကို အရင်ထည့်ပါ။');return;}  
+const opening='ဒီနေ့မှာတော့ "'+topic+'" အကြောင်းကို စိတ်ဝင်စားဖွယ် လေ့လာကြရအောင်။';  
+const middle=kind==='ဟာသ'?'တစ်ခါတလေ မထင်မှတ်ထားတဲ့ အဖြစ်အပျက်လေးတွေက အမှတ်တရအကောင်းဆုံး ဖြစ်လာတတ်ပါတယ်။':  
+kind==='ပုံပြင်'?'ဒီအကြောင်းအရာထဲမှာ စဉ်းစားစရာ သင်ခန်းစာတစ်ခု ရှိနေပါတယ်။':  
+kind==='သမိုင်း'?'ဒီအကြောင်းကို နားလည်ဖို့ အချက်အလက်တွေကို သေချာစဉ်းစားဖို့ လိုပါတယ်။':  
+kind==='အားပေးစကား'?'အောင်မြင်မှုဆိုတာ ချက်ချင်းရလာတာမဟုတ်ပါဘူး။ နေ့တိုင်းကြိုးစားမှုလေးတွေကနေ စတင်တာပါ။':  
+kind==='နည်းပညာ'?'နည်းပညာကို မှန်ကန်စွာအသုံးချရင် အလုပ်တွေကို ပိုမိုလွယ်ကူစေနိုင်ပါတယ်။':  
+'အရေးကြီးဆုံးက အချက်အလက်တွေကို လက်တွေ့အသုံးချနိုင်ဖို့နဲ့ ယုံကြည်စိတ်ချရတဲ့ အရင်းအမြစ်တွေကနေ စစ်ဆေးဖို့ပါ။';  
+const ending='ဒီအကြောင်းအရာကို သဘောကျရင် Like လုပ်ပြီး နောက်ထပ်ဗီဒီယိုတွေအတွက် Follow လုပ်ထားပါနော်။';  
+const script=opening+'\n\n'+middle+(extra?'\n\nထပ်ဖြည့်ရန် - '+extra:'')+'\n\n'+ending;  
+document.getElementById('script').value=script;  
+const scenes='Scene 1 — အဖွင့် ('+Math.round(duration*.2)+' စက္ကန့်)\nမြင်ကွင်း: '+topic+' နဲ့ သက်ဆိုင်တဲ့ ဆွဲဆောင်မှုရှိသော အဖွင့်မြင်ကွင်း။\nစာတန်း: '+topic+'\nAI Prompt: Vertical 9:16 short video, '+topic+', cinematic lighting, high detail, '+style+'.\n\nScene 2 — အကြောင်းအရာ ('+Math.round(duration*.55)+' စက္ကန့်)\nဇာတ်ညွှန်း: '+middle+'\nAI Prompt: Vertical 9:16 video scene illustrating '+topic+', '+kind+', natural motion, clear composition, '+style+'.\n\nScene 3 — အဆုံးသတ် ('+Math.round(duration*.25)+' စက္ကန့်)\nဇာတ်ညွှန်း: '+ending+'\nAI Prompt: Vertical 9:16 closing scene, attractive background, space for Burmese captions, smooth ending.';  
+document.getElementById('scenes').textContent=scenes;  
+}  
+function copyText(id){  
+const el=document.getElementById(id);  
+const text=el.value!==undefined?el.value:el.textContent;  
+if(navigator.clipboard&&navigator.clipboard.writeText){  
+navigator.clipboard.writeText(text).then(()=>alert('ကူးယူပြီးပါပြီ။')).catch(()=>fallbackCopy(text));  
+}else fallbackCopy(text);  
+}  
+function fallbackCopy(text){  
+const area=document.createElement('textarea');  
+area.value=text;document.body.appendChild(area);area.select();  
+try{document.execCommand('copy');alert('ကူးယူပြီးပါပြီ။')}catch(e){alert('စာသားကို ဖိထားပြီး Copy လုပ်ပါ။')}  
+area.remove();  
+}  
+function speak(){  
+if(!('speechSynthesis' in window)){alert('ဒီ Browser မှာ အသံဖတ်စနစ် မရနိုင်ပါ။');return;}  
+const text=document.getElementById('script').value;  
+if(!text){alert('အရင်ဆုံး ဇာတ်ညွှန်းဖန်တီးပါ။');return;}  
+speechSynthesis.cancel();  
+const utterance=new SpeechSynthesisUtterance(text);  
+utterance.lang='my-MM';utterance.rate=0.9;  
+speechSynthesis.speak(utterance);  
+}  
+function stopSpeak(){if('speechSynthesis' in window)speechSynthesis.cancel();}  
+function downloadText(){  
+const script=document.getElementById('script').value;  
+const scenes=document.getElementById('scenes').textContent;  
+if(!script){alert('အရင်ဆုံး ဇာတ်ညွှန်းဖန်တီးပါ။');return;}  
+const blob=new Blob(['Myanmar AI Shorts\n\nဇာတ်ညွှန်း\n'+script+'\n\nScene Prompts\n'+scenes],{type:'text/plain;charset=utf-8'});  
+const url=URL.createObjectURL(blob);  
+const a=document.createElement('a');a.href=url;a.download='myanmar-ai-shorts.txt';a.click();  
+URL.revokeObjectURL(url);  
+}  
+
+async function makeVideo(){
+  const script = document.getElementById('script').value.trim();
+  const topic = document.getElementById('topic').value.trim();
+
+  if(!script){
+    alert('အရင်ဆုံး ဇာတ်ညွှန်းဖန်တီးပါ။');
+    return;
+  }
+
+  if(!window.MediaRecorder){
+    alert('ဒီ Browser မှာ ဗီဒီယိုဖန်တီးမှု မပံ့ပိုးပါ။ Chrome နဲ့ ပြန်စမ်းပါ။');
+    return;
+  }
+
+  const canvas = document.getElementById('videoCanvas');
+  const ctx = canvas.getContext('2d');
+  const status = document.getElementById('videoStatus');
+  const link = document.getElementById('videoDownload');
+
+  const lines = script.match(/.{1,22}/gu) || [script];
+  const pages = [];
+  for(let i=0;i<lines.length;i+=5){
+    pages.push(lines.slice(i,i+5).join('\n'));
+  }
+
+  const drawPage = (text, page) => {
+    const g = ctx.createLinearGradient(0,0,360,640);
+    g.addColorStop(0,'#4c1d95');
+    g.addColorStop(1,'#0c1020');
+    ctx.fillStyle=g;
+    ctx.fillRect(0,0,360,640);
+
+    ctx.fillStyle='#c4b5fd';
+    ctx.font='bold 17px sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText('MYANMAR AI SHORTS',180,65);
+
+    ctx.fillStyle='#ffffff';
+    ctx.font='bold 25px sans-serif';
+    ctx.fillText(topic.slice(0,22),180,125);
+
+    ctx.font='21px sans-serif';
+    const words=text.split('\n');
+    let y=220;
+    for(const word of words){
+      ctx.fillText(word.slice(0,25),180,y);
+      y+=42;
+    }
+
+    ctx.fillStyle='#c4b5fd';
+    ctx.font='16px sans-serif';
+    ctx.fillText((page+1)+' / '+pages.length,180,590);
+  };
+
+  const stream=canvas.captureStream(24);
+  const mimeType=
+    MediaRecorder.isTypeSupported('video/mp4;codecs=avc1')
+      ? 'video/mp4;codecs=avc1'
+      : 'video/webm;codecs=vp8';
+
+  const recorder=new MediaRecorder(stream,{mimeType});
+  const chunks=[];
+  recorder.ondataavailable=e=>{
+    if(e.data.size) chunks.push(e.data);
+  };
+
+  recorder.onstop=()=>{
+    const type=recorder.mimeType;
+    const blob=new Blob(chunks,{type});
+    const url=URL.createObjectURL(blob);
+    link.href=url;
+    link.download=type.includes('mp4')
+      ? 'myanmar-ai-shorts.mp4'
+      : 'myanmar-ai-shorts.webm';
+    link.textContent='⬇️ ဗီဒီယိုဒေါင်းလုဒ် ('+
+      (type.includes('mp4')?'MP4':'WebM')+')';
+    link.style.display='block';
+    status.textContent='ဗီဒီယိုဖန်တီးပြီးပါပြီ။ Download ကိုနှိပ်ပါ။';
+    stream.getTracks().forEach(t=>t.stop());
+  };
+
+  link.style.display='none';
+  status.textContent='ဗီဒီယိုဖန်တီးနေပါတယ်။ ခဏစောင့်ပါ...';
+  recorder.start();
+
+  let page=0;
+  const showPage=()=>{
+    drawPage(pages[page],page);
+    page++;
+    if(page<pages.length){
+      setTimeout(showPage,2500);
+    }else{
+      setTimeout(()=>recorder.stop(),2500);
+    }
+  };
+  showPage();
+}
+</script>  
+</body>  
+</html>  
