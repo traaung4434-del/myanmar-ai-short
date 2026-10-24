@@ -90,6 +90,17 @@ footer{text-align:center;color:#9ca3af;padding:22px}
   <a id="videoDownload" style="display:none;color:#c4b5fd"
     download="myanmar-ai-shorts.webm">⬇️ ဗီဒီယိုဒေါင်းလုဒ်</a>
 </section>
+<section class="card">
+  <h2>🌆 လှုပ်ရှားနေသော Scene</h2>
+  <canvas id="animatedScene"
+          width="360"
+          height="640"
+          style="width:100%;max-width:320px;display:block;margin:auto;border-radius:12px;">
+  </canvas>
+  <button type="button" onclick="toggleSceneAnimation()">
+    ⏯ Animation ဖွင့်/ပိတ်
+  </button>
+</section>
 </main>  
 <footer>Myanmar AI Shorts Studio · Version 1.0</footer>  
 <script>  
@@ -244,5 +255,94 @@ async function makeVideo(){
   showPage();
 }
 </script>  
+
+<script>
+const sceneCanvas = document.getElementById("animatedScene");
+const sceneCtx = sceneCanvas.getContext("2d");
+
+let sceneRunning = true;
+let sceneTime = 0;
+
+function drawAnimatedScene() {
+  if (sceneRunning) {
+    sceneTime += 0.03;
+
+    const sky = sceneCtx.createLinearGradient(0, 0, 0, 640);
+    sky.addColorStop(0, "#38bdf8");
+    sky.addColorStop(1, "#fde68a");
+
+    sceneCtx.fillStyle = sky;
+    sceneCtx.fillRect(0, 0, 360, 640);
+
+    // နေ
+    sceneCtx.fillStyle = "#fff1a8";
+    sceneCtx.beginPath();
+    sceneCtx.arc(275, 120, 35, 0, Math.PI * 2);
+    sceneCtx.fill();
+
+    // ရွေ့လျားနေသော မိုးတိမ်
+    for (let i = 0; i < 4; i++) {
+      const x = ((i * 110 + sceneTime * 35) % 440) - 40;
+      const y = 70 + i * 45;
+
+      sceneCtx.fillStyle = "rgba(255,255,255,0.85)";
+      sceneCtx.beginPath();
+      sceneCtx.arc(x, y, 20, 0, Math.PI * 2);
+      sceneCtx.arc(x + 22, y - 8, 23, 0, Math.PI * 2);
+      sceneCtx.arc(x + 43, y, 18, 0, Math.PI * 2);
+      sceneCtx.fill();
+    }
+
+    // တောင်တန်း
+    sceneCtx.fillStyle = "#39966b";
+    sceneCtx.beginPath();
+    sceneCtx.moveTo(0, 390);
+    sceneCtx.lineTo(100, 290);
+    sceneCtx.lineTo(190, 390);
+    sceneCtx.lineTo(280, 300);
+    sceneCtx.lineTo(360, 390);
+    sceneCtx.lineTo(360, 640);
+    sceneCtx.lineTo(0, 640);
+    sceneCtx.fill();
+
+    // လမ်း
+    sceneCtx.fillStyle = "#374151";
+    sceneCtx.fillRect(0, 490, 360, 75);
+
+    // လှုပ်ရှားနေသော ကား
+    const carX = ((sceneTime * 45) % 420) - 60;
+    sceneCtx.fillStyle = "#ef4444";
+    sceneCtx.fillRect(carX, 465, 55, 25);
+    sceneCtx.fillStyle = "#dbeafe";
+    sceneCtx.fillRect(carX + 10, 450, 30, 18);
+
+    sceneCtx.fillStyle = "#111827";
+    sceneCtx.beginPath();
+    sceneCtx.arc(carX + 12, 492, 7, 0, Math.PI * 2);
+    sceneCtx.arc(carX + 43, 492, 7, 0, Math.PI * 2);
+    sceneCtx.fill();
+
+    // မြက်ခင်း
+    sceneCtx.fillStyle = "#15803d";
+    sceneCtx.fillRect(0, 565, 360, 75);
+
+    // ခေါင်းစဉ်
+    sceneCtx.fillStyle = "white";
+    sceneCtx.font = "bold 22px sans-serif";
+    sceneCtx.textAlign = "center";
+    sceneCtx.fillText("Myanmar AI Shorts", 180, 610);
+  }
+
+  requestAnimationFrame(drawAnimatedScene);
+}
+
+function toggleSceneAnimation() {
+  sceneRunning = !sceneRunning;
+}
+
+drawAnimatedScene();
+</script>
+</body>
+</html>
 </body>  
 </html>  
